@@ -32,4 +32,17 @@ def generateMouseHeatmap(gameChoice):
 
 
 def keyUsageMap():
-    print("e")
+    keysDict = {}
+    keysFile = open("keyTracking.txt", "r")
+    for line in keysFile:
+        key = line.split("=")[0]
+        amount = line.split("=")[1]
+        keysDict[str(key)] = int(amount)
+    keysFile.close()
+    keysDict = dict(sorted(keysDict.items(), key=lambda item: item[1]))
+    first = str(list(keysDict)[-1])
+    second = str(list(keysDict)[-2])
+    third = str(list(keysDict)[-3])
+    print(first, second, third)
+    
+keyUsageMap()
