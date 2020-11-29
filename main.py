@@ -1,6 +1,8 @@
+#Imports my 2 files
 import tracker
 import generator
 
+#All them other imports you know
 import kivy
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
@@ -10,6 +12,8 @@ from kivy.uix.dropdown import DropDown
 from kivy.uix.popup import Popup
 from PIL import Image
 
+
+#Creates the GUI window for my program
 class homePage(GridLayout):
     def __init__(self, **kwargs):
         super(homePage, self).__init__(**kwargs)
@@ -29,6 +33,7 @@ class homePage(GridLayout):
         self.statBtn.bind(on_press=self.keystatsButton)
         self.add_widget(self.statBtn)
 
+    #Handles whether the tracking program is enabled or disabled
     def trackingButton(self, instance):
         global trackingRunning
         if trackingRunning == False:
@@ -40,28 +45,33 @@ class homePage(GridLayout):
             trackingRunning = False
             self.trackBtn.text = "Enable"
 
+    #Generates a heatmap from "generator.py" and opens it
     def generateButton(self, instance):
         generator.generateMouseHeatmap("LeagueOfLegends")
         img = Image.open("mouseHeatmap.png")
         img.show()
 
+    #Retrieves key stats from "generator.py" and displays them in a popup
     def keystatsButton(self, instance):
-        keyArr = generator.keyUsageMap()
+        keyArr, averagePress = generator.keyUsageMap()
         newArr = []
         for x in keyArr:
             if "." in str(x):
                 newArr.append(x.split(".")[1])
             else:
                 newArr.append(x)
-        popup = Popup(title='Keystroke Statistics', content=Label(text="Your most used keys are:\n"+str(newArr[0])+"\n"+str(newArr[1])+"\n"+str(newArr[2])), auto_dismiss=False, size=(400,400))
+        content = Label(text="Your most used keys are:\n"+str(newArr[0])+"\n"+str(newArr[1])+"\n"+str(newArr[2])+"\n"+"\nYour average presses per key is: "+str(averagePress))
+        popup = Popup(title='Keystroke Statistics',content=content,auto_dismiss=True, size=(400,400))
+        content.bind(on_press=popup.dismiss)
         popup.open()
     
 
+#Program interface app to create the window
 class ProgramInterface(App):
     def build(self):
         self.title = 'WireTrack - Statistics Tracker'
         return homePage()
 
-
+#runs the programinterface app
 trackingRunning = False
 ProgramInterface().run()

@@ -1,7 +1,9 @@
+#Imports for key/mouse monitoring
 import pynput
 from pynput import mouse
 from pynput import keyboard
 
+#Creates empty keysDict
 keysDict = {
 }
 keyReleased = True
@@ -38,6 +40,7 @@ def keyPress(key):
     print(keysDict[str(theKey)])
     keyReleased = False
 
+#Checks if a key has been released to prevent multiple additions to key press data
 def keyRelease(key):
     global keyReleased
     if keyReleased == True:
@@ -46,6 +49,7 @@ def keyRelease(key):
         keyReleased = True
     return keyReleased
 
+#Halts the listeners and writes the key dictionary to the document
 def halt():
     global keysDict
     file = open("keyTracking.txt","w")
@@ -56,6 +60,7 @@ def halt():
     global haltListeners
     haltListeners = True
 
+#Reads in the file to a keys dictionary and starts the mouse/key listeners
 def initialise():
     global keysDict
     keysFile = open("keyTracking.txt", "r")
@@ -67,5 +72,6 @@ def initialise():
     mouseListener.start()
     keysListener.start()
 
+#Defines mouseListener and keysListener
 mouseListener = mouse.Listener(on_click=mousePress)
 keysListener = keyboard.Listener(on_press=keyPress, on_release=keyRelease)

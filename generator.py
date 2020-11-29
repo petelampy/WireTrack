@@ -1,3 +1,4 @@
+#Imports for heatmap generation
 from PIL import Image, ImageDraw
 import matplotlib.pyplot as plt
 import numpy as np
@@ -30,20 +31,23 @@ def generateMouseHeatmap(gameChoice):
     plt.savefig("mouseHeatmap.png", bbox_inches="tight", dpi=300)
     plt.close()
 
-
+#Generates stats for most pressed keys and average key presses
 def keyUsageMap():
     keysDict = {}
     keysFile = open("keyTracking.txt", "r")
+    linecount = 0
+    total = 0
     for line in keysFile:
         key = line.split("=")[0]
         amount = line.split("=")[1]
+        total += int(amount)
         keysDict[str(key)] = int(amount)
+        linecount += 1
     keysFile.close()
     keysDict = dict(sorted(keysDict.items(), key=lambda item: item[1]))
     first = str(list(keysDict)[-1])
     second = str(list(keysDict)[-2])
     third = str(list(keysDict)[-3])
     keyArr = [first, second, third]
-    return keyArr
-    
-keyUsageMap()
+    averagePress = int(total) / int(linecount)
+    return keyArr, averagePress
