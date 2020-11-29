@@ -8,16 +8,6 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 
-def trackingButton(instance):
-    global trackingRunning
-    if trackingRunning == False:
-        tracker.initialise()
-        trackingRunning = True
-        print("completed")
-    elif trackingRunning == True:
-        tracker.halt()
-        trackingRunning = False
-        print("completed2")
 
 def generateButton(instance):
     #NEEDS FINISHING
@@ -29,12 +19,23 @@ class homePage(GridLayout):
         self.cols = 2
         self.add_widget(Label(text='Tracking'))
         self.trackBtn = Button(text='Enable')
-        self.trackBtn.bind(on_press=trackingButton)
+        self.trackBtn.bind(on_press=self.trackingButton)
         self.add_widget(self.trackBtn)
         self.add_widget(Label(text='Usage Statistics'))
         self.genBtn = Button(text='Generate')
         self.genBtn.bind(on_press=generateButton)
         self.add_widget(self.genBtn)
+
+    def trackingButton(self, instance):
+        global trackingRunning
+        if trackingRunning == False:
+            tracker.initialise()
+            trackingRunning = True
+            self.trackBtn.text = "Disable"
+        elif trackingRunning == True:
+            tracker.halt()
+            trackingRunning = False
+            self.trackBtn.text = "Enable"
 
 class ProgramInterface(App):
     def build(self):
