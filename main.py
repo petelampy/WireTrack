@@ -3,6 +3,8 @@ import tracker
 import generator
 
 #All them other imports you know
+import os
+os.environ["KIVY_NO_CONSOLELOG"] = "1"
 import kivy
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
