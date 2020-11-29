@@ -5,10 +5,12 @@ from pynput import keyboard
 keysDict = {
 }
 keyReleased = True
-
+haltListeners = False
 
 #When the user presses a mouse button, the coordinates are saved to a file
 def mousePress(x, y, button, pressed):
+    if haltListeners == True:
+        return False
     if pressed == True:
         f = open("mouseTracking.txt", "a")
         f.write(str(x)+"#"+str(y)+"\n")
@@ -16,7 +18,10 @@ def mousePress(x, y, button, pressed):
 
 #When the user presses a key, the number of times it has been pressed is logged in a dictionary   
 def keyPress(key):
+    global haltListeners
     global keyReleased
+    if haltListeners == True:
+        return False
     if keyReleased == False:
         return
     try:
@@ -42,7 +47,8 @@ def keyRelease(key):
     return keyReleased
 
 def halt():
-    #NEED A SOLUTION FOR THIS
+    global haltListeners
+    haltListeners = True
 
 def initialise():
     global keysDict
