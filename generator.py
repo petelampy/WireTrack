@@ -33,6 +33,3 @@ def generateMouseHeatmap(gameChoice):
 
 def keyUsageMap():
     print("e")
-
-
-generateMouseHeatmap("LeagueOfLegends")

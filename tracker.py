@@ -57,8 +57,9 @@ def initialise():
         key = line.split("=")[0]
         amount = line.split("=")[1]
         keysDict[str(key)] = int(amount)
-    mouseListener = mouse.Listener(on_click=mousePress)
+    
     mouseListener.start()
-
-    keysListener = keyboard.Listener(on_press=keyPress, on_release=keyRelease)
     keysListener.start()
+
+mouseListener = mouse.Listener(on_click=mousePress)
+keysListener = keyboard.Listener(on_press=keyPress, on_release=keyRelease)
