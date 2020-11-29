@@ -9,4 +9,4 @@ The program is for tracking user keystrokes and mouse clicks in order to generat
 # Requirements
 Python 3.7
 
-PIL, matplotlib, numpy, scipy, pynput
+PIL, matplotlib, numpy, scipy, pynput, kivy
