@@ -36,8 +36,6 @@ def keyPress(key):
         keysDict[theKey] = currentVal
     elif theKey not in keysDict.keys():
         keysDict[str(theKey)] = 1
-
-    print(keysDict[str(theKey)])
     keyReleased = False
 
 #Checks if a key has been released to prevent multiple additions to key press data
