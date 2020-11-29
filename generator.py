@@ -43,6 +43,7 @@ def keyUsageMap():
     first = str(list(keysDict)[-1])
     second = str(list(keysDict)[-2])
     third = str(list(keysDict)[-3])
-    print(first, second, third)
+    keyArr = [first, second, third]
+    return keyArr
     
 keyUsageMap()

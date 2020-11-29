@@ -46,9 +46,16 @@ class homePage(GridLayout):
         img.show()
 
     def keystatsButton(self, instance):
-        #Move this pop up somewhere else
-        popup = Popup(title='Keystroke Statistics', content=Label(text="Hello world"), auto_dismiss=False)
+        keyArr = generator.keyUsageMap()
+        newArr = []
+        for x in keyArr:
+            if "." in str(x):
+                newArr.append(x.split(".")[1])
+            else:
+                newArr.append(x)
+        popup = Popup(title='Keystroke Statistics', content=Label(text="Your most used keys are:\n"+str(newArr[0])+"\n"+str(newArr[1])+"\n"+str(newArr[2])), auto_dismiss=False, size=(400,400))
         popup.open()
+    
 
 class ProgramInterface(App):
     def build(self):
