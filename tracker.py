@@ -47,6 +47,12 @@ def keyRelease(key):
     return keyReleased
 
 def halt():
+    global keysDict
+    file = open("keyTracking.txt","w")
+    file.truncate(0)
+    for key, value in keysDict.items():
+        file.write(str(key)+"="+str(value)+"\n")
+    file.close()
     global haltListeners
     haltListeners = True
 
@@ -57,7 +63,7 @@ def initialise():
         key = line.split("=")[0]
         amount = line.split("=")[1]
         keysDict[str(key)] = int(amount)
-    
+    keysFile.close()
     mouseListener.start()
     keysListener.start()
 
