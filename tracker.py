@@ -4,11 +4,6 @@ from pynput import keyboard
 
 keysDict = {
 }
-keysFile = open("keyTracking.txt", "r")
-for line in keysFile:
-    key = line.split("=")[0]
-    amount = line.split("=")[1]
-    keysDict[str(key)] = int(amount)
 keyReleased = True
 
 
@@ -46,8 +41,18 @@ def keyRelease(key):
         keyReleased = True
     return keyReleased
 
-mouseListener = mouse.Listener(on_click=mousePress)
-mouseListener.start()
+def halt():
+    #NEED A SOLUTION FOR THIS
 
-keysListener = keyboard.Listener(on_press=keyPress, on_release=keyRelease)
-keysListener.start()
+def initialise():
+    global keysDict
+    keysFile = open("keyTracking.txt", "r")
+    for line in keysFile:
+        key = line.split("=")[0]
+        amount = line.split("=")[1]
+        keysDict[str(key)] = int(amount)
+    mouseListener = mouse.Listener(on_click=mousePress)
+    mouseListener.start()
+
+    keysListener = keyboard.Listener(on_press=keyPress, on_release=keyRelease)
+    keysListener.start()
